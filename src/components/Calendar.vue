@@ -1,17 +1,31 @@
 <template>
   <div class="container">
     <div class="calendar">
-      <div class="calendar__header">
-        <font-awesome-icon icon="angle-left" @click="goPreviousMonth" />
-        <h3>{{ monthNames[visibleMonth] }} {{ visibleYear }}</h3>
-        <font-awesome-icon icon="angle-right" @click="goNextMonth" />
-      </div>
       <template v-if="mode === 'day'">
+        <div class="calendar__header">
+          <font-awesome-icon icon="angle-left" @click="goPreviousMonth" />
+          <h3 @click="switchMode('month')">
+            {{ monthNames[visibleMonth] }} {{ visibleYear }}
+          </h3>
+          <font-awesome-icon icon="angle-right" @click="goNextMonth" />
+        </div>
         <div class="calendar__weekdays">
           <h4 v-for="weekday in weekdays" :key="weekday">{{ weekday }}</h4>
         </div>
         <div class="calendar__content">
           <DaySelector />
+        </div>
+      </template>
+      <template v-else-if="'month'">
+        <div class="calendar__header">
+          <font-awesome-icon icon="angle-left" @click="goPreviousYear" />
+          <h3 @click="switchMode('year')">
+            {{ visibleYear }}
+          </h3>
+          <font-awesome-icon icon="angle-right" @click="goNextYear" />
+        </div>
+        <div class="calendar__content">
+          <MonthSelector />
         </div>
       </template>
     </div>
@@ -21,16 +35,16 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import DaySelector from './DaySelector.vue';
+import MonthSelector from './MonthSelector.vue';
 
 export default {
   name: 'Calendar',
   components: {
     DaySelector,
+    MonthSelector,
   },
   data() {
-    return {
-      mode: 'day',
-    };
+    return {};
   },
   computed: {
     ...mapState([
@@ -40,6 +54,7 @@ export default {
       'visibleMonth',
       'visibleYear',
       'daysOfCalendar',
+      'mode',
     ]),
     ...mapGetters(['currentYear', 'currentMonth', 'currentDate']),
     daysOfVisibleMonth() {
@@ -70,7 +85,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['setVisibleMonth', 'setVisibleYear']),
+    ...mapMutations(['setVisibleMonth', 'setVisibleYear', 'switchMode']),
     goPreviousMonth() {
       if (this.visibleMonth > 1 - 1) {
         const month = this.visibleMonth - 1;
@@ -113,9 +128,19 @@ export default {
     align-items: center;
 
     h3 {
+      flex: 1;
       margin: 0;
+      padding: 4px 0;
       font-size: 1.5em;
       font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+      border-radius: 0.2em;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.2);
+      }
     }
 
     svg {

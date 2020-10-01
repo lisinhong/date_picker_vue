@@ -12,6 +12,8 @@ export default new Vuex.Store({
     visibleYear: 2009,
     today: new Date(),
     selectedDate: new Date(),
+    selectedMonth: new Date().getMonth(),
+    mode: 'day',
   },
   getters: {
     currentYear(state) {
@@ -33,6 +35,12 @@ export default new Vuex.Store({
     },
     selectDate(state, date) {
       state.selectedDate = new Date(date);
+    },
+    selectMonth(state, month) {
+      state.selectedMonth = month;
+    },
+    switchMode(state, mode) {
+      state.mode = mode;
     },
   },
   actions: {
