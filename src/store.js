@@ -10,6 +10,19 @@ export default new Vuex.Store({
     monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     visibleMonth: 0,
     visibleYear: 2009,
+    today: new Date(),
+    selectedDate: new Date(),
+  },
+  getters: {
+    currentYear(state) {
+      return state.today.getFullYear();
+    },
+    currentMonth(state) {
+      return state.today.getMonth();
+    },
+    currentDate(state) {
+      return state.today.getDate();
+    },
   },
   mutations: {
     setVisibleMonth(state, month) {
@@ -17,6 +30,9 @@ export default new Vuex.Store({
     },
     setVisibleYear(state, year) {
       state.visibleYear = year;
+    },
+    selectDate(state, date) {
+      state.selectedDate = new Date(date);
     },
   },
   actions: {
