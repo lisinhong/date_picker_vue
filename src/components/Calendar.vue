@@ -72,12 +72,26 @@ export default {
   methods: {
     ...mapMutations(['setVisibleMonth', 'setVisibleYear']),
     goPreviousMonth() {
-      const month = this.visibleMonth - 1;
-      this.setVisibleMonth(month);
+      if (this.visibleMonth > 1 - 1) {
+        const month = this.visibleMonth - 1;
+        this.setVisibleMonth(month);
+      } else {
+        const month = 12 - 1;
+        const year = this.visibleYear - 1;
+        this.setVisibleMonth(month);
+        this.setVisibleYear(year);
+      }
     },
     goNextMonth() {
-      const month = this.visibleMonth + 1;
-      this.setVisibleMonth(month);
+      if (this.visibleMonth < 12 - 1) {
+        const month = this.visibleMonth + 1;
+        this.setVisibleMonth(month);
+      } else {
+        const month = 1 - 1;
+        const year = this.visibleYear + 1;
+        this.setVisibleMonth(month);
+        this.setVisibleYear(year);
+      }
     },
   },
   created() {
