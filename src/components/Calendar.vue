@@ -134,6 +134,7 @@ export default {
       'setVisibleYear',
       'switchMode',
       'setYearsRange',
+      'selectDate',
     ]),
     goPreviousMonth() {
       if (this.visibleMonth > 1 - 1) {
@@ -207,6 +208,9 @@ export default {
   created() {
     this.setVisibleMonth(this.currentMonth);
     this.setVisibleYear(this.currentYear);
+    this.selectDate(
+      new Date(this.visibleYear, this.visibleMonth, this.currentDate),
+    );
 
     const yearsRange = [];
     // eslint-disable-next-line no-plusplus
