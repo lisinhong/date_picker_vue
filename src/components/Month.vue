@@ -46,10 +46,17 @@ export default {
   height: 8vw;
   border-radius: 50%;
   cursor: pointer;
+  transition: 0.2s;
 
   &--is-selected {
     color: #ffffff;
     background: #db3d44;
+  }
+
+  &:not(&--is-selected) {
+    &:hover {
+      background: rgba(#db3d44, 0.2);
+    }
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <div
     class="day"
     :class="{
-      'day--disabled': disabled,
+      'day--is-disabled': disabled,
       'day--is-today': isToday,
       'day--is-selected': isSelected,
     }"
@@ -60,6 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .day {
+  margin: 0.2em 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,9 +68,11 @@ export default {
   height: 6vw;
   border-radius: 50%;
   cursor: pointer;
+  transition: 0.2s;
 
-  &--disabled {
+  &--is-disabled {
     color: gray;
+    cursor: not-allowed;
   }
 
   &--is-today {
@@ -79,6 +82,12 @@ export default {
   &--is-selected {
     color: #ffffff;
     background: #db3d44;
+  }
+
+  &:not(&--is-disabled):not(&--is-selected) {
+    &:hover {
+      background: rgba(#db3d44, 0.2);
+    }
   }
 }
 </style>

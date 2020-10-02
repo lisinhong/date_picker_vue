@@ -2,7 +2,7 @@
   <div
     class="year"
     :class="{
-      'year--disabled': disabled,
+      'year--is-disabled': disabled,
       'year--is-selected': isSelected,
     }"
     @click="
@@ -56,14 +56,22 @@ export default {
   height: 8vw;
   border-radius: 50%;
   cursor: pointer;
+  transition: 0.2s;
 
-  &--disabled {
+  &--is-disabled {
     color: gray;
+    cursor: not-allowed;
   }
 
   &--is-selected {
     color: #ffffff;
     background: #db3d44;
+  }
+
+  &:not(&--is-disabled):not(&--is-selected) {
+    &:hover {
+      background: rgba(#db3d44, 0.2);
+    }
   }
 }
 </style>

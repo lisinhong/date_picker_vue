@@ -3,11 +3,19 @@
     <div class="calendar">
       <template v-if="mode === 'day'">
         <div class="calendar__header">
-          <font-awesome-icon icon="angle-left" @click="goPreviousMonth" />
-          <h3 @click="switchMode('month')">
+          <div class="icon-wrapper">
+            <i class="icon">
+              <font-awesome-icon icon="angle-left" @click="goPreviousMonth" />
+            </i>
+          </div>
+          <h3 class="clickable" @click="switchMode('month')">
             {{ monthNames[visibleMonth] }} {{ visibleYear }}
           </h3>
-          <font-awesome-icon icon="angle-right" @click="goNextMonth" />
+          <div class="icon-wrapper">
+            <i class="icon">
+              <font-awesome-icon icon="angle-right" @click="goNextMonth" />
+            </i>
+          </div>
         </div>
         <div class="calendar__weekdays">
           <h4 v-for="weekday in weekdays" :key="weekday">{{ weekday }}</h4>
@@ -18,11 +26,19 @@
       </template>
       <template v-else-if="mode === 'month'">
         <div class="calendar__header">
-          <font-awesome-icon icon="angle-left" @click="goPreviousYear" />
-          <h3 @click="switchMode('year')">
+          <div class="icon-wrapper">
+            <i class="icon">
+              <font-awesome-icon icon="angle-left" @click="goPreviousYear" />
+            </i>
+          </div>
+          <h3 class="clickable" @click="switchMode('year')">
             {{ visibleYear }}
           </h3>
-          <font-awesome-icon icon="angle-right" @click="goNextYear" />
+          <div class="icon-wrapper">
+            <i class="icon">
+              <font-awesome-icon icon="angle-right" @click="goNextYear" />
+            </i>
+          </div>
         </div>
         <div class="calendar__content">
           <MonthSelector />
@@ -30,9 +46,20 @@
       </template>
       <template v-else-if="mode === 'year'">
         <div class="calendar__header">
-          <font-awesome-icon icon="angle-left" @click="goPreviousYearsRange" />
+          <div class="icon-wrapper">
+            <i class="icon">
+              <font-awesome-icon
+                icon="angle-left"
+                @click="goPreviousYearsRange"
+              />
+            </i>
+          </div>
           <h3>{{ yearsRange[1] }} - {{ yearsRange[yearsRange.length - 2] }}</h3>
-          <font-awesome-icon icon="angle-right" @click="goNextYearsRange" />
+          <div class="icon-wrapper">
+            <i class="icon">
+              <font-awesome-icon icon="angle-right" @click="goNextYearsRange" />
+            </i>
+          </div>
         </div>
         <div class="calendar__content">
           <YearSelector />
@@ -60,7 +87,6 @@ export default {
   },
   computed: {
     ...mapState([
-      'today',
       'weekdays',
       'monthNames',
       'visibleMonth',
@@ -127,6 +153,32 @@ export default {
         this.setVisibleYear(year);
       }
     },
+    goPreviousYear() {
+      const year = this.visibleYear - 1;
+      this.setVisibleYear(year);
+
+      const yearsRange = [];
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.yearsOfCalendar; i++) {
+        // eslint-disable-next-line no-shadow
+        const year = Math.floor(this.visibleYear / 10) * 10 - 1 + i;
+        yearsRange.push(year);
+      }
+      this.setYearsRange(yearsRange);
+    },
+    goNextYear() {
+      const year = this.visibleYear + 1;
+      this.setVisibleYear(year);
+
+      const yearsRange = [];
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.yearsOfCalendar; i++) {
+        // eslint-disable-next-line no-shadow
+        const year = Math.floor(this.visibleYear / 10) * 10 - 1 + i;
+        yearsRange.push(year);
+      }
+      this.setYearsRange(yearsRange);
+    },
     goPreviousYearsRange() {
       const firstYear = this.yearsRange[0] - 10;
       const yearsRange = [];
@@ -169,6 +221,10 @@ export default {
   border: 1px solid #333;
   padding: 2em 1em;
 
+  * {
+    user-select: none;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -177,23 +233,46 @@ export default {
     h3 {
       flex: 1;
       margin: 0;
-      padding: 4px 0;
+      padding: 8px 0;
       font-size: 1.5em;
       font-weight: 600;
       text-align: center;
-      cursor: pointer;
       transition: 0.2s;
       border-radius: 0.2em;
 
-      &:hover {
-        background: rgba(0, 0, 0, 0.2);
+      &.clickable {
+        &:hover {
+          background: rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+        }
       }
     }
 
-    svg {
+    .icon-wrapper {
       flex: 0 0 calc(100% / 7);
-      font-size: 1.2em;
-      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 6vw;
+        height: 6vw;
+        cursor: pointer;
+        transition: 0.2s;
+        border-radius: 50%;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      svg {
+        width: 4vw;
+        height: 4vw;
+      }
     }
   }
 

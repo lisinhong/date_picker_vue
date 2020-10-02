@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import Year from './Year.vue';
 
 export default {
