@@ -27,6 +27,15 @@ export default new Vuex.Store({
     currentDate(state) {
       return state.today.getDate();
     },
+    // yearsRange(state) {
+    //   const yearsRange = [];
+    //   // eslint-disable-next-line no-plusplus
+    //   for (let i = 0; i < state.yearsOfCalendar; i++) {
+    //     const year = Math.floor(state.visibleYear / 10) * 10 - 1 + i;
+    //     yearsRange.push(year);
+    //   }
+    //   return yearsRange;
+    // },
   },
   mutations: {
     setVisibleMonth(state, month) {

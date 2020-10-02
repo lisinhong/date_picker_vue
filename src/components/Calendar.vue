@@ -70,14 +70,10 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 import DaySelector from './DaySelector.vue';
 import MonthSelector from './MonthSelector.vue';
 import YearSelector from './YearSelector.vue';
-
-const { mapState, mapMutations, mapGetters } = createNamespacedHelpers(
-  'calendar',
-);
 
 export default {
   name: 'Calendar',

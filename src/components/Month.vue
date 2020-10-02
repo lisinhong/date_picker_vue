@@ -12,9 +12,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-
-const { mapState, mapMutations } = createNamespacedHelpers('calendar');
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Month',
