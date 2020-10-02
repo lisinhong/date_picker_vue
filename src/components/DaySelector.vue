@@ -28,8 +28,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import Day from './Day.vue';
+
+const { mapState, mapMutations, mapGetters } = createNamespacedHelpers(
+  'calendar',
+);
 
 export default {
   name: 'DaySelector',

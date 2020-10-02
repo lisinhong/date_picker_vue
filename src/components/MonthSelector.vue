@@ -7,8 +7,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import Month from './Month.vue';
+
+const { mapState } = createNamespacedHelpers('calendar');
 
 export default {
   name: 'MonthSelector',

@@ -3,7 +3,8 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const calendar = {
+  namespaced: true,
   state: {
     daysOfCalendar: 42,
     monthsOfCalendar: 12,
@@ -27,15 +28,6 @@ export default new Vuex.Store({
     currentDate(state) {
       return state.today.getDate();
     },
-    // yearsRange(state) {
-    //   const yearsRange = [];
-    //   // eslint-disable-next-line no-plusplus
-    //   for (let i = 0; i < state.yearsOfCalendar; i++) {
-    //     const year = Math.floor(state.visibleYear / 10) * 10 - 1 + i;
-    //     yearsRange.push(year);
-    //   }
-    //   return yearsRange;
-    // },
   },
   mutations: {
     setVisibleMonth(state, month) {
@@ -62,7 +54,10 @@ export default new Vuex.Store({
       }, 100);
     },
   },
-  actions: {
+};
 
+export default new Vuex.Store({
+  modules: {
+    calendar,
   },
 });

@@ -10,8 +10,10 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import Year from './Year.vue';
+
+const { mapState, mapMutations } = createNamespacedHelpers('calendar');
 
 export default {
   name: 'YearSelector',
