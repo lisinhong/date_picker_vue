@@ -2,19 +2,16 @@
   <div id="app">
     <div class="container">
       <DatePicker />
-      <!-- <Calendar /> -->
     </div>
   </div>
 </template>
 
 <script>
-import Calendar from './components/Calendar.vue';
 import DatePicker from './components/DatePicker.vue';
 
 export default {
   name: 'App',
   components: {
-    Calendar,
     DatePicker,
   },
   data() {
@@ -24,6 +21,10 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   width: 100%;
@@ -44,9 +45,6 @@ body {
 }
 
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   max-width: 1200px;
   width: 100%;
   height: 100%;

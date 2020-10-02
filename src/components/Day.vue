@@ -6,7 +6,7 @@
       'day--is-today': isToday,
       'day--is-selected': isSelected,
     }"
-    @click="disabled ? '' : selectDate(dayObject)"
+    @click="handleClick"
   >
     {{ day }}
   </div>
@@ -52,9 +52,16 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['selectDate']),
+    ...mapMutations(['selectDate', 'hideCalendar']),
+    handleClick() {
+      if (this.disabled) return;
+      this.selectDate(this.dayObject);
+      setTimeout(() => {
+        document.querySelector('.calendar').classList.remove('is-open');
+        this.hideCalendar();
+      }, 200);
+    },
   },
-  created() {},
 };
 </script>
 
@@ -64,8 +71,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 6vw;
-  height: 6vw;
+  width: 3vw;
+  height: 3vw;
   border-radius: 50%;
   cursor: pointer;
   transition: 0.2s;

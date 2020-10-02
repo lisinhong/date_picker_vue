@@ -3,15 +3,17 @@
     <h1>Select or type one date!</h1>
     <div class="input-wrapper">
       <input
+        id="input-date"
         type="text"
         placeholder="YYYY-MM-DD"
         v-model="inputDate"
         @input="trySelectDate"
         @change="tryRevertDate"
+        @focus="showCalendar"
       />
       <font-awesome-icon icon="calendar-alt" />
     </div>
-    <Calendar />
+    <Calendar v-if="shouldCalendarShow" />
   </div>
 </template>
 
@@ -30,11 +32,16 @@ export default {
     };
   },
   computed: {
-    ...mapState(['selectedDate']),
+    ...mapState(['selectedDate', 'shouldCalendarShow']),
     ...mapGetters(['currentYear', 'currentMonth', 'currentDate']),
   },
   methods: {
-    ...mapMutations(['selectDate', 'setVisibleYear', 'setVisibleMonth']),
+    ...mapMutations([
+      'selectDate',
+      'setVisibleYear',
+      'setVisibleMonth',
+      'showCalendar',
+    ]),
     dateFormatter(data) {
       const year = data.getFullYear().toString();
       const month = data.getMonth() + 1 > 9
@@ -83,22 +90,23 @@ export default {
 
 <style lang="scss" scoped>
 .date-picker {
+  margin: 0 auto;
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  max-width: 50vw;
 }
 .input-wrapper {
   position: relative;
 
   input {
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     font-size: 14px;
     padding: 8px;
     padding-left: calc(8px + 14px + 8px);
     border-radius: 8px;
-    outline: none;
 
     &:focus {
       & + svg {

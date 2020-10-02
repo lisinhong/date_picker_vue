@@ -16,6 +16,7 @@ export default new Vuex.Store({
     selectedDate: new Date(),
     mode: 'day',
     yearsRange: [],
+    shouldCalendarShow: false,
   },
   getters: {
     currentYear(state) {
@@ -51,6 +52,15 @@ export default new Vuex.Store({
       setTimeout(() => {
         state.mode = mode;
       }, 100);
+    },
+    showCalendar(state) {
+      state.shouldCalendarShow = true;
+    },
+    hideCalendar(state) {
+      setTimeout(() => {
+        state.shouldCalendarShow = false;
+        state.mode = 'day';
+      }, 200);
     },
   },
 });

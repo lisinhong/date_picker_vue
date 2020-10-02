@@ -1,71 +1,69 @@
 <template>
-  <div class="container">
-    <div class="calendar">
-      <template v-if="mode === 'day'">
-        <div class="calendar__header">
-          <div class="icon-wrapper">
-            <i class="icon">
-              <font-awesome-icon icon="angle-left" @click="goPreviousMonth" />
-            </i>
-          </div>
-          <h3 class="clickable" @click="switchMode('month')">
-            {{ monthNames[visibleMonth] }} {{ visibleYear }}
-          </h3>
-          <div class="icon-wrapper">
-            <i class="icon">
-              <font-awesome-icon icon="angle-right" @click="goNextMonth" />
-            </i>
-          </div>
+  <div class="calendar">
+    <template v-if="mode === 'day'">
+      <div class="calendar__header">
+        <div class="icon-wrapper">
+          <i class="icon">
+            <font-awesome-icon icon="angle-left" @click="goPreviousMonth" />
+          </i>
         </div>
-        <div class="calendar__weekdays">
-          <h4 v-for="weekday in weekdays" :key="weekday">{{ weekday }}</h4>
+        <h3 class="clickable" @click="switchMode('month')">
+          {{ monthNames[visibleMonth] }} {{ visibleYear }}
+        </h3>
+        <div class="icon-wrapper">
+          <i class="icon">
+            <font-awesome-icon icon="angle-right" @click="goNextMonth" />
+          </i>
         </div>
-        <div class="calendar__content">
-          <DaySelector />
+      </div>
+      <div class="calendar__weekdays">
+        <h4 v-for="weekday in weekdays" :key="weekday">{{ weekday }}</h4>
+      </div>
+      <div class="calendar__content">
+        <DaySelector />
+      </div>
+    </template>
+    <template v-else-if="mode === 'month'">
+      <div class="calendar__header">
+        <div class="icon-wrapper">
+          <i class="icon">
+            <font-awesome-icon icon="angle-left" @click="goPreviousYear" />
+          </i>
         </div>
-      </template>
-      <template v-else-if="mode === 'month'">
-        <div class="calendar__header">
-          <div class="icon-wrapper">
-            <i class="icon">
-              <font-awesome-icon icon="angle-left" @click="goPreviousYear" />
-            </i>
-          </div>
-          <h3 class="clickable" @click="switchMode('year')">
-            {{ visibleYear }}
-          </h3>
-          <div class="icon-wrapper">
-            <i class="icon">
-              <font-awesome-icon icon="angle-right" @click="goNextYear" />
-            </i>
-          </div>
+        <h3 class="clickable" @click="switchMode('year')">
+          {{ visibleYear }}
+        </h3>
+        <div class="icon-wrapper">
+          <i class="icon">
+            <font-awesome-icon icon="angle-right" @click="goNextYear" />
+          </i>
         </div>
-        <div class="calendar__content">
-          <MonthSelector />
+      </div>
+      <div class="calendar__content">
+        <MonthSelector />
+      </div>
+    </template>
+    <template v-else-if="mode === 'year'">
+      <div class="calendar__header">
+        <div class="icon-wrapper">
+          <i class="icon">
+            <font-awesome-icon
+              icon="angle-left"
+              @click="goPreviousYearsRange"
+            />
+          </i>
         </div>
-      </template>
-      <template v-else-if="mode === 'year'">
-        <div class="calendar__header">
-          <div class="icon-wrapper">
-            <i class="icon">
-              <font-awesome-icon
-                icon="angle-left"
-                @click="goPreviousYearsRange"
-              />
-            </i>
-          </div>
-          <h3>{{ yearsRange[1] }} - {{ yearsRange[yearsRange.length - 2] }}</h3>
-          <div class="icon-wrapper">
-            <i class="icon">
-              <font-awesome-icon icon="angle-right" @click="goNextYearsRange" />
-            </i>
-          </div>
+        <h3>{{ yearsRange[1] }} - {{ yearsRange[yearsRange.length - 2] }}</h3>
+        <div class="icon-wrapper">
+          <i class="icon">
+            <font-awesome-icon icon="angle-right" @click="goNextYearsRange" />
+          </i>
         </div>
-        <div class="calendar__content">
-          <YearSelector />
-        </div>
-      </template>
-    </div>
+      </div>
+      <div class="calendar__content">
+        <YearSelector />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -131,6 +129,7 @@ export default {
       'switchMode',
       'setYearsRange',
       'selectDate',
+      'hideCalendar',
     ]),
     goPreviousMonth() {
       if (this.visibleMonth > 1 - 1) {
@@ -200,6 +199,15 @@ export default {
       }
       this.setYearsRange(yearsRange);
     },
+    handleClickAway(e) {
+      e.stopPropagation();
+      const input = document.querySelector('#input-date');
+
+      if (!input.contains(e.target) && !this.$el.contains(e.target)) {
+        this.hideCalendar();
+        this.$el.classList.remove('is-open');
+      }
+    },
   },
   created() {
     this.setVisibleMonth(this.currentMonth);
@@ -213,14 +221,39 @@ export default {
     }
     this.setYearsRange(yearsRange);
   },
+  mounted() {
+    this.$el.click();
+    document.body.addEventListener('click', this.handleClickAway);
+    setTimeout(() => {
+      this.$el.classList.add('is-open');
+    }, 0);
+  },
+  beforeDestroy() {
+    document.body.removeEventListener('click', this.handleClickAway);
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .calendar {
-  width: 80%;
-  border: 1px solid #333;
-  padding: 2em 1em;
+  width: 100%;
+  max-width: 50vw;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: scaleY(0) translateX(-50%);
+  border-radius: 4px;
+  padding: 1em;
+  opacity: 0;
+  transform-origin: center top;
+  transition: 0.2s ease-out;
+
+  &.is-open {
+    transform: scaleY(1) translateX(-50%);
+    opacity: 1;
+  }
 
   * {
     user-select: none;
@@ -259,8 +292,8 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 6vw;
-        height: 6vw;
+        width: 4vw;
+        height: 4vw;
         cursor: pointer;
         transition: 0.2s;
         border-radius: 50%;
@@ -271,14 +304,14 @@ export default {
       }
 
       svg {
-        width: 4vw;
-        height: 4vw;
+        width: 3vw;
+        height: 3vw;
       }
     }
   }
 
   &__weekdays {
-    margin: 2em 0;
+    margin: 1em 0;
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -52,8 +52,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 8vw;
-  height: 8vw;
+  width: 4vw;
+  height: 4vw;
   border-radius: 50%;
   cursor: pointer;
   transition: 0.2s;
