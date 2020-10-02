@@ -52,9 +52,20 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['selectDate', 'hideCalendar']),
+    ...mapMutations([
+      'selectDate',
+      'hideCalendar',
+      'setVisibleYear',
+      'setVisibleMonth',
+      'setYearsRange',
+    ]),
     handleClick() {
       if (this.disabled) return;
+      const year = new Date(this.dayObject).getFullYear();
+      const month = new Date(this.dayObject).getMonth();
+
+      this.setVisibleYear(year);
+      this.setVisibleMonth(month);
       this.selectDate(this.dayObject);
       setTimeout(() => {
         document.querySelector('.calendar').classList.remove('is-open');

@@ -210,9 +210,6 @@ export default {
     },
   },
   created() {
-    this.setVisibleMonth(this.currentMonth);
-    this.setVisibleYear(this.currentYear);
-
     const yearsRange = [];
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < this.yearsOfCalendar; i++) {
@@ -222,7 +219,6 @@ export default {
     this.setYearsRange(yearsRange);
   },
   mounted() {
-    this.$el.click();
     document.body.addEventListener('click', this.handleClickAway);
     setTimeout(() => {
       this.$el.classList.add('is-open');

@@ -107,7 +107,7 @@ export default {
   }
 
   h1 {
-    margin: 4vw 0;
+    margin: 3.6vw 0;
     font-size: 2em;
 
     @media (max-width: 480px) {
