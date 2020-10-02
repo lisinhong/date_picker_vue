@@ -56,8 +56,22 @@ const calendar = {
   },
 };
 
+const DatePicker = {
+  namespaced: true,
+  state: {
+
+  },
+  getters: {
+
+  },
+  mutations: {
+
+  },
+};
+
 export default new Vuex.Store({
   modules: {
     calendar,
+    DatePicker,
   },
 });

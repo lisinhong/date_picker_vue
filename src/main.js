@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import store from './store';
 import App from './App.vue';
 
-library.add(faAngleLeft, faAngleRight);
+library.add(faAngleLeft, faAngleRight, faCalendarAlt);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

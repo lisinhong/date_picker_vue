@@ -1,18 +1,21 @@
 <template>
   <div id="app">
     <div class="container">
-      <Calendar />
+      <DatePicker />
+      <!-- <Calendar /> -->
     </div>
   </div>
 </template>
 
 <script>
 import Calendar from './components/Calendar.vue';
+import DatePicker from './components/DatePicker.vue';
 
 export default {
   name: 'App',
   components: {
     Calendar,
+    DatePicker,
   },
   data() {
     return {};
