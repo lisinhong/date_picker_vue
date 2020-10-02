@@ -3,8 +3,7 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-const calendar = {
-  namespaced: true,
+export default new Vuex.Store({
   state: {
     daysOfCalendar: 42,
     monthsOfCalendar: 12,
@@ -53,25 +52,5 @@ const calendar = {
         state.mode = mode;
       }, 100);
     },
-  },
-};
-
-const DatePicker = {
-  namespaced: true,
-  state: {
-
-  },
-  getters: {
-
-  },
-  mutations: {
-
-  },
-};
-
-export default new Vuex.Store({
-  modules: {
-    calendar,
-    DatePicker,
   },
 });
