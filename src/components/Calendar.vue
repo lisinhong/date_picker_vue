@@ -16,7 +16,7 @@
           <DaySelector />
         </div>
       </template>
-      <template v-else-if="'month'">
+      <template v-else-if="mode === 'month'">
         <div class="calendar__header">
           <font-awesome-icon icon="angle-left" @click="goPreviousYear" />
           <h3 @click="switchMode('year')">
@@ -28,6 +28,16 @@
           <MonthSelector />
         </div>
       </template>
+      <template v-else-if="mode === 'year'">
+        <div class="calendar__header">
+          <font-awesome-icon icon="angle-left" @click="goPreviousYearsRange" />
+          <h3>{{ yearsRange[1] }} - {{ yearsRange[yearsRange.length - 2] }}</h3>
+          <font-awesome-icon icon="angle-right" @click="goNextYearsRange" />
+        </div>
+        <div class="calendar__content">
+          <YearSelector />
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -36,12 +46,14 @@
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import DaySelector from './DaySelector.vue';
 import MonthSelector from './MonthSelector.vue';
+import YearSelector from './YearSelector.vue';
 
 export default {
   name: 'Calendar',
   components: {
     DaySelector,
     MonthSelector,
+    YearSelector,
   },
   data() {
     return {};
@@ -55,6 +67,8 @@ export default {
       'visibleYear',
       'daysOfCalendar',
       'mode',
+      'yearsOfCalendar',
+      'yearsRange',
     ]),
     ...mapGetters(['currentYear', 'currentMonth', 'currentDate']),
     daysOfVisibleMonth() {
@@ -85,7 +99,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['setVisibleMonth', 'setVisibleYear', 'switchMode']),
+    ...mapMutations([
+      'setVisibleMonth',
+      'setVisibleYear',
+      'switchMode',
+      'setYearsRange',
+    ]),
     goPreviousMonth() {
       if (this.visibleMonth > 1 - 1) {
         const month = this.visibleMonth - 1;
@@ -108,12 +127,38 @@ export default {
         this.setVisibleYear(year);
       }
     },
-    goPreviousYear() {},
-    goNextYear() {},
+    goPreviousYearsRange() {
+      const firstYear = this.yearsRange[0] - 10;
+      const yearsRange = [];
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.yearsOfCalendar; i++) {
+        const year = firstYear + i;
+        yearsRange.push(year);
+      }
+      this.setYearsRange(yearsRange);
+    },
+    goNextYearsRange() {
+      const firstYear = this.yearsRange[0] + 10;
+      const yearsRange = [];
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.yearsOfCalendar; i++) {
+        const year = firstYear + i;
+        yearsRange.push(year);
+      }
+      this.setYearsRange(yearsRange);
+    },
   },
   created() {
     this.setVisibleMonth(this.currentMonth);
     this.setVisibleYear(this.currentYear);
+
+    const yearsRange = [];
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < this.yearsOfCalendar; i++) {
+      const year = Math.floor(this.visibleYear / 10) * 10 - 1 + i;
+      yearsRange.push(year);
+    }
+    this.setYearsRange(yearsRange);
   },
 };
 </script>

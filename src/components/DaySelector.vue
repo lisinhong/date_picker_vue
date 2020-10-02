@@ -5,30 +5,24 @@
       v-for="day in remainingDaysOfPreviousMonth"
       :key="`prev-${daysOfPreviousMonth - remainingDaysOfPreviousMonth + day}`"
     >
-      <div class="day">
-        <Day
-          :day="daysOfPreviousMonth - remainingDaysOfPreviousMonth + day"
-          disabled
-        />
-      </div>
+      <Day
+        :day="daysOfPreviousMonth - remainingDaysOfPreviousMonth + day"
+        disabled
+      />
     </div>
     <div
       class="day-wrapper"
       v-for="day in daysOfVisibleMonth"
       :key="`current-${day}`"
     >
-      <div class="day">
-        <Day :day="day" />
-      </div>
+      <Day :day="day" />
     </div>
     <div
       class="day-wrapper"
       v-for="day in remainingDaysOfNextMonth"
       :key="`next-${day}`"
     >
-      <div class="day">
-        <Day :day="day" disabled />
-      </div>
+      <Day :day="day" disabled />
     </div>
   </div>
 </template>
@@ -43,9 +37,7 @@ export default {
     Day,
   },
   data() {
-    return {
-      mode: 'day',
-    };
+    return {};
   },
   computed: {
     ...mapState([

@@ -37,15 +37,14 @@ export default {
       return new Date(this.visibleYear, this.visibleMonth, this.day);
     },
     isToday() {
-      if (this.disabled) return false;
-      return (
-        new Date(this.visibleYear, this.visibleMonth, this.day).getTime()
-        === new Date(
-          this.currentYear,
-          this.currentMonth,
-          this.currentDate,
-        ).getTime()
-      );
+      return this.disabled
+        ? false
+        : new Date(this.visibleYear, this.visibleMonth, this.day).getTime()
+            === new Date(
+              this.currentYear,
+              this.currentMonth,
+              this.currentDate,
+            ).getTime();
     },
     isSelected() {
       if (this.disabled) return false;

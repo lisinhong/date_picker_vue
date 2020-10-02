@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     daysOfCalendar: 42,
     monthsOfCalendar: 12,
+    yearsOfCalendar: 12,
     weekdays: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
     monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     visibleMonth: 0,
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     today: new Date(),
     selectedDate: new Date(),
     mode: 'day',
+    yearsRange: [],
   },
   getters: {
     currentYear(state) {
@@ -25,6 +27,15 @@ export default new Vuex.Store({
     currentDate(state) {
       return state.today.getDate();
     },
+    // yearsRange(state) {
+    //   const yearsRange = [];
+    //   // eslint-disable-next-line no-plusplus
+    //   for (let i = 0; i < state.yearsOfCalendar; i++) {
+    //     const year = Math.floor(state.visibleYear / 10) * 10 - 1 + i;
+    //     yearsRange.push(year);
+    //   }
+    //   return yearsRange;
+    // },
   },
   mutations: {
     setVisibleMonth(state, month) {
@@ -33,14 +44,22 @@ export default new Vuex.Store({
     setVisibleYear(state, year) {
       state.visibleYear = year;
     },
+    setYearsRange(state, range) {
+      state.yearsRange = range;
+    },
     selectDate(state, date) {
       state.selectedDate = new Date(date);
     },
     selectMonth(state, month) {
       state.visibleMonth = month;
     },
+    selectYear(state, year) {
+      state.visibleYear = year;
+    },
     switchMode(state, mode) {
-      state.mode = mode;
+      setTimeout(() => {
+        state.mode = mode;
+      }, 100);
     },
   },
   actions: {
