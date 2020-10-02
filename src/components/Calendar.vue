@@ -241,7 +241,7 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 1vw);
   left: 50%;
   transform: scaleY(0) translateX(-50%);
   border-radius: 4px;
@@ -249,6 +249,14 @@ export default {
   opacity: 0;
   transform-origin: center top;
   transition: 0.2s ease-out;
+
+  @media (min-width: 601px) and (max-width: 768px) {
+    max-width: 80vw;
+  }
+
+  @media (max-width: 600px) {
+    max-width: 90vw;
+  }
 
   &.is-open {
     transform: scaleY(1) translateX(-50%);

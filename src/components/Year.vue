@@ -73,5 +73,20 @@ export default {
       background: rgba(#db3d44, 0.2);
     }
   }
+
+  @media (min-width: 601px) and (max-width: 768px) {
+    width: 6vw;
+    height: 6vw;
+  }
+
+  @media (min-width: 401px) and (max-width: 600px) {
+    width: 8vw;
+    height: 8vw;
+  }
+
+  @media (max-width: 400px) {
+    width: 10vw;
+    height: 10vw;
+  }
 }
 </style>

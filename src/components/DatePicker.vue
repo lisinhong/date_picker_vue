@@ -97,16 +97,41 @@ export default {
   flex-direction: column;
   width: 100%;
   max-width: 50vw;
+
+  @media (min-width: 601px) and (max-width: 768px) {
+    max-width: 80vw;
+  }
+
+  @media (max-width: 600px) {
+    max-width: 90vw;
+  }
+
+  h1 {
+    margin: 4vw 0;
+    font-size: 2em;
+
+    @media (max-width: 480px) {
+      font-size: 1.5em;
+    }
+  }
 }
 .input-wrapper {
   position: relative;
+  width: 50%;
+
+  @media (max-width: 600px) {
+    width: 60%;
+  }
 
   input {
+    display: flex;
+    align-items: center;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    padding: 8px;
-    padding-left: calc(8px + 14px + 8px);
+    font-size: 1em;
+    padding: 1vw;
+    padding-left: calc(1vw + 1em + 1vw);
     border-radius: 8px;
+    width: 100%;
 
     &:focus {
       & + svg {
@@ -117,10 +142,10 @@ export default {
 
   svg {
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 1em;
+    height: 1em;
     top: 50%;
-    left: 8px;
+    left: 1.2vw;
     transform: translateY(-50%);
     color: rgba(0, 0, 0, 0.4);
     transition: 0.2s;
