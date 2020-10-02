@@ -6,13 +6,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     daysOfCalendar: 42,
+    monthsOfCalendar: 12,
     weekdays: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
     monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     visibleMonth: 0,
     visibleYear: 2009,
     today: new Date(),
     selectedDate: new Date(),
-    selectedMonth: new Date().getMonth(),
     mode: 'day',
   },
   getters: {
@@ -37,7 +37,7 @@ export default new Vuex.Store({
       state.selectedDate = new Date(date);
     },
     selectMonth(state, month) {
-      state.selectedMonth = month;
+      state.visibleMonth = month;
     },
     switchMode(state, mode) {
       state.mode = mode;

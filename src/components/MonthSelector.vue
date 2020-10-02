@@ -1,6 +1,6 @@
 <template>
   <div class="month-selector">
-    <div class="month-wrapper" v-for="n in 12" :key="n">
+    <div class="month-wrapper" v-for="n in monthsOfCalendar" :key="n">
       <Month :month="n - 1" />
     </div>
   </div>
@@ -19,7 +19,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(['monthNames']),
+    ...mapState(['monthNames', 'monthsOfCalendar']),
   },
 };
 </script>

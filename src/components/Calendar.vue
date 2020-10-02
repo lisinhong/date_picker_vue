@@ -108,6 +108,8 @@ export default {
         this.setVisibleYear(year);
       }
     },
+    goPreviousYear() {},
+    goNextYear() {},
   },
   created() {
     this.setVisibleMonth(this.currentMonth);

@@ -1,11 +1,18 @@
 <template>
-  <div class="month" :class="{ 'month--is-selected': isSelected }">
+  <div
+    class="month"
+    :class="{ 'month--is-selected': isSelected }"
+    @click="
+      selectMonth(month);
+      switchMode('year');
+    "
+  >
     {{ monthNames[month] }}
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Month',
@@ -19,10 +26,13 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(['monthNames', 'selectedMonth']),
+    ...mapState(['monthNames', 'visibleMonth']),
     isSelected() {
-      return this.month === this.selectedMonth;
+      return this.month === this.visibleMonth;
     },
+  },
+  methods: {
+    ...mapMutations(['selectMonth', 'switchMode']),
   },
 };
 </script>
