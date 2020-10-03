@@ -43,6 +43,7 @@ export default {
       'showCalendar',
     ]),
     dateFormatter(data) {
+      // Format date to YYYY-MM-DD
       const year = data.getFullYear().toString();
       const month = data.getMonth() + 1 > 9
         ? (data.getMonth() + 1).toString()
@@ -54,6 +55,7 @@ export default {
     },
     checkIsDate() {
       return (
+        // 'YYYY-MM-DD'.length equals 10
         new Date(this.inputDate).toString() !== 'Invalid Date'
         && this.inputDate.length === 10
       );

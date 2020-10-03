@@ -96,9 +96,11 @@ export default {
     ]),
     ...mapGetters(['currentYear', 'currentMonth', 'currentDate']),
     daysOfVisibleMonth() {
+      // Get the number of days with the third parameter set to 0
       return new Date(this.visibleYear, this.visibleMonth + 1, 0).getDate();
     },
     daysOfPreviousMonth() {
+      // Get the number of days with the third parameter set to 0
       return new Date(this.visibleYear, this.visibleMonth, 0).getDate();
     },
     weekdayOfFirstDay() {
@@ -112,6 +114,9 @@ export default {
       ).getDay();
     },
     remainingDaysOfPreviousMonth() {
+      // Day index range starts from 0 to 6 (Sunday to Saturday)
+      // If this.weekdayOfFirstDay equals 1, it starts on Monday
+      // The remaining days of provious month is therefore 1 (this.weekdayOfFirstDay)
       return this.weekdayOfFirstDay;
     },
     remainingDaysOfNextMonth() {
@@ -132,10 +137,13 @@ export default {
       'hideCalendar',
     ]),
     goPreviousMonth() {
+      // Month index range starts from 0 to 11 (January to December)
       if (this.visibleMonth > 1 - 1) {
         const month = this.visibleMonth - 1;
         this.setVisibleMonth(month);
       } else {
+        // If this.visibleMonth equals 1, switch to previous year
+        // And set month to December
         const month = 12 - 1;
         const year = this.visibleYear - 1;
         this.setVisibleMonth(month);
@@ -143,10 +151,13 @@ export default {
       }
     },
     goNextMonth() {
+      // Month index range starts from 0 to 11 (January to December)
       if (this.visibleMonth < 12 - 1) {
         const month = this.visibleMonth + 1;
         this.setVisibleMonth(month);
       } else {
+        // If this.visibleMonth equals 12, switch to next year
+        // And set month to January
         const month = 1 - 1;
         const year = this.visibleYear + 1;
         this.setVisibleMonth(month);
@@ -160,6 +171,7 @@ export default {
       const yearsRange = [];
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.yearsOfCalendar; i++) {
+        // Get years range starts from times of 10
         // eslint-disable-next-line no-shadow
         const year = Math.floor(this.visibleYear / 10) * 10 - 1 + i;
         yearsRange.push(year);
@@ -173,6 +185,7 @@ export default {
       const yearsRange = [];
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.yearsOfCalendar; i++) {
+        // Get years range starts from times of 10
         // eslint-disable-next-line no-shadow
         const year = Math.floor(this.visibleYear / 10) * 10 - 1 + i;
         yearsRange.push(year);
@@ -200,6 +213,7 @@ export default {
       this.setYearsRange(yearsRange);
     },
     handleClickAway(e) {
+      // If user clicks away from input or calendar, the calender hides
       e.stopPropagation();
       const input = document.querySelector('#input-date');
 
@@ -211,6 +225,7 @@ export default {
   },
   created() {
     const yearsRange = [];
+    // Get years range starts from times of 10
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < this.yearsOfCalendar; i++) {
       const year = Math.floor(this.visibleYear / 10) * 10 - 1 + i;
