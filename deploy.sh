@@ -17,6 +17,6 @@ git add -A
 git commit -m 'deploy'
 
 # 部署到 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:lisinhong/quiz.git master:gh-pages
+git push -f git@github.com:lisinhong/date_picker_vue.git master:gh-pages
 
 cd -

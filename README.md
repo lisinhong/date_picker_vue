@@ -1,4 +1,4 @@
-# quiz
+# date_picker_vue
 
 ## Project descriptions
 - This is a date-picker component with a popup calendar component, you can choose either to type a date or to select a date on the popup calendar.
@@ -8,7 +8,7 @@
 - Mobile friendly! You can use it on desktop, tablet or mobile.
 
 ## Project link
-https://lisinhong.github.io/quiz/
+https://lisinhong.github.io/date_picker_vue/
 
 ## Project setup
 ```
