@@ -75,6 +75,7 @@ export default {
   },
   watch: {
     inputDate(inputDate) {
+      if (!this.checkIsDate()) return;
       const year = new Date(inputDate).getFullYear();
       const month = new Date(inputDate).getMonth();
 
